@@ -10,10 +10,15 @@ public interface UserService {
 
     Optional<User> findByIdOptional(Long id);
 
-    void update(User originalUser, User updatedUser);
-
     void create(User user);
 
     Iterable<User> findAll();
+
+    User findByUsername(String userName);
+
+    Optional<User> findByUsernameOptional(String userName);
+
+    void decriseBudget(User user);
+
 
 }

@@ -32,11 +32,11 @@ public class UserServiceImpl implements UserService {
         return Optional.ofNullable(findById(id));
     }
 
-    @Override
+/*    @Override
     public void update(User originalUser, User updatedUser) {
         originalUser.setUsername(updatedUser.getUsername());
         userRepository.save(originalUser);
-    }
+    }*/
 
     @Override
     public void create(User user) {
@@ -48,4 +48,22 @@ public class UserServiceImpl implements UserService {
     public Iterable<User> findAll() {
         return userRepository.findAll();
     }
+
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public Optional<User> findByUsernameOptional(String username) {
+        return Optional.ofNullable(findByUsername(username));
+    }
+
+    @Override
+    public void decriseBudget(User user) {
+
+    }
 }
+
+

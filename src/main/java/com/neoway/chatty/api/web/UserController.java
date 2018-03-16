@@ -41,7 +41,8 @@ public class UserController {
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(ErrorResource.badRequest(errors));
         }
-        
+
+        //TODO it still need to validate properly if the user is already  in database
         userService.create(user);
 
         return ResponseEntity
@@ -60,36 +61,4 @@ public class UserController {
         return new ResponseEntity<>(ErrorResource.notFound("Not found an user with the given id"),
                 HttpStatus.NOT_FOUND);
     }
-/*
-    @RequestMapping(value = EndpointConfig.USERS_SINGLE_RESOURCE, method = PUT)
-    @ResponseBody
-    public ResponseEntity<Object> update(@Valid @PathVariable(value="id") Long id, @RequestBody User user, Errors errors){
-
-        Optional<User> resource = userService.findByIdOptional(id);
-        if(resource.isPresent()){
-            if (errors.hasErrors()) {
-                return ResponseEntity.badRequest().body(ErrorResource.badRequest(errors));
-            }
-            userService.update(resource.get(), user);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        return new ResponseEntity<>(ErrorResource.notFound("Not found an user with the given id"),
-                HttpStatus.NOT_FOUND);
-    }
-
-    @RequestMapping(value = EndpointConfig.USERS_SINGLE_RESOURCE, method = DELETE)
-    @ResponseBody
-    public  ResponseEntity<Object> delete(@PathVariable(value="id") Long id){
-
-        Optional<User> user = userService.findByIdOptional(id);
-        if(user.isPresent()){
-            userService.delete(user.get());
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-
-        return new ResponseEntity<>(ErrorResource.notFound("Not found an user with the given id"),
-                HttpStatus.NOT_FOUND);
-
-    }*/
-
 }

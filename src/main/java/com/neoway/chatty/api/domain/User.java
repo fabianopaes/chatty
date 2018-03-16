@@ -1,8 +1,12 @@
 package com.neoway.chatty.api.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+
+import static java.util.Objects.nonNull;
 
 
 @Entity
@@ -14,6 +18,7 @@ public class User {
     private Long id;
 
     @NotNull(message = "username might not be null")
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @NotNull(message = "name might not be null")
@@ -21,16 +26,16 @@ public class User {
 
     private Long budget;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private Date createdAt;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private Date updatedAt;
 
 
     public User(){
         //A new user might have 10 credits to send messages throuth the app
         this.budget = 10L;
-        this.createdAt = new Date();
-
     }
 
     public static User of(String name, String username){
@@ -69,6 +74,12 @@ public class User {
         updatedAt = new Date();
     }
 
+    @PrePersist
+    public void prePersist(){
+        createdAt = new Date();
+        updatedAt = new Date();
+    }
+
     public Long getBudget() {
         return budget;
     }
@@ -91,5 +102,9 @@ public class User {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public boolean hasBudget(){
+        return nonNull(budget) && budget > 1;
     }
 }
