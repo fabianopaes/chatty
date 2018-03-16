@@ -61,8 +61,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void decriseBudget(User user) {
-
+    public void purchaseMessage(User user) {
+        user.discount(1L);
+        userRepository.save(user);
     }
 }
 

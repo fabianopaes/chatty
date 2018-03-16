@@ -18,7 +18,7 @@ public interface UserService {
 
     Optional<User> findByUsernameOptional(String userName);
 
-    void decriseBudget(User user);
+    void purchaseMessage(User user);
 
 
 }

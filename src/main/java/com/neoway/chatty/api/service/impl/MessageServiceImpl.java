@@ -37,11 +37,12 @@ public class MessageServiceImpl implements MessageService{
             throw new RuntimeException("The user has no budget to sent the message");
         }
 
-        User userTarget = userService.findByUsernameOptional(message.getFrom())
+        User userTarget = userService.findByUsernameOptional(message.getTo())
                 .orElseThrow(null);
 
         save(message);
 
+        userService.purchaseMessage(userSource);
     }
 
     @Override

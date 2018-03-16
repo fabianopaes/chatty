@@ -105,6 +105,10 @@ public class User {
     }
 
     public boolean hasBudget(){
-        return nonNull(budget) && budget > 1;
+        return nonNull(budget) && budget > 0;
+    }
+
+    public void discount(Long discount){
+        setBudget(getBudget() - discount);
     }
 }
