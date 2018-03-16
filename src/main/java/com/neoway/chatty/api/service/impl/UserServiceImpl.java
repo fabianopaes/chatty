@@ -1,0 +1,51 @@
+package com.neoway.chatty.api.service.impl;
+
+import com.neoway.chatty.api.domain.User;
+import com.neoway.chatty.api.domain.UserRepository;
+import com.neoway.chatty.api.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+    private UserRepository userRepository;
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public UserRepository getUserRepository() {
+        return userRepository;
+    }
+
+    @Override
+    public User findById(Long id) {
+        return userRepository.findOne(id);
+    }
+
+    @Override
+    public Optional<User> findByIdOptional(Long id) {
+        return Optional.ofNullable(findById(id));
+    }
+
+    @Override
+    public void update(User originalUser, User updatedUser) {
+        originalUser.setUsername(updatedUser.getUsername());
+        userRepository.save(originalUser);
+    }
+
+    @Override
+    public void create(User user) {
+        //validade
+        userRepository.save(user);
+    }
+
+    @Override
+    public Iterable<User> findAll() {
+        return userRepository.findAll();
+    }
+}
