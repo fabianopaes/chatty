@@ -23,20 +23,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Long id) {
-        return userRepository.findOne("");
+    public Optional<User> findById(String id) {
+        return userRepository.findById(id);
     }
-
-    @Override
-    public Optional<User> findByIdOptional(Long id) {
-        return Optional.ofNullable(findById(id));
-    }
-
-/*    @Override
-    public void update(User originalUser, User updatedUser) {
-        originalUser.setUsername(updatedUser.getUsername());
-        userRepository.save(originalUser);
-    }*/
 
     @Override
     public void create(User user) {
@@ -49,15 +38,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
-
     @Override
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-
-    @Override
-    public Optional<User> findByUsernameOptional(String username) {
-        return Optional.ofNullable(findByUsername(username));
+    public Optional<User> findByUsername(String username) {
+        return Optional.ofNullable(userRepository.findByUsername(username));
     }
 
     @Override
@@ -70,6 +53,8 @@ public class UserServiceImpl implements UserService {
     public void save(User user) {
         userRepository.save(user);
     }
+
+
 }
 
 

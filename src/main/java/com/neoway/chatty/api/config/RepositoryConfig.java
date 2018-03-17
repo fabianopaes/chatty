@@ -19,10 +19,11 @@ class RepositoryConfig extends AbstractMongoConfiguration {
     }
 
     @Override
-    public Mongo mongo() throws Exception {
+    public MongoClient mongoClient() {
         MongoClientURI connectionString =
                 new MongoClientURI("mongodb://fabiano:fabiano@ds011923.mlab.com:11923/neoway-chatty-database");
+               // new MongoClientURI("mongodb://fabiano:fabiano@localhost:11923/neoway-chatty-database");
+
         return new MongoClient(connectionString);
     }
-
 }

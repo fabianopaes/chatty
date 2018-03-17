@@ -30,14 +30,14 @@ public class MessageServiceImpl implements MessageService{
     @Override
     public void send(Message message) {
 
-        User sender = userService.findByUsernameOptional(message.getFrom())
+        User sender = userService.findByUsername(message.getFrom())
                 .orElseThrow(null);
 
         if(! sender.hasBudget()){
             throw new RuntimeException("The user has no budget to sent the message");
         }
 
-        userService.findByUsernameOptional(message.getTo())
+        userService.findByUsername(message.getTo())
                 .orElseThrow(null);
 
         save(message);

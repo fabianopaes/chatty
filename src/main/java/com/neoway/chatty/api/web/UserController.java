@@ -52,9 +52,9 @@ public class UserController {
 
     @RequestMapping(value = EndpointConfig.USERS_SINGLE_RESOURCE, method = GET)
     @ResponseBody
-    public ResponseEntity<Object> get(@PathVariable(value="id") Long id){
+    public ResponseEntity<Object> get(@PathVariable(value="id") String id){
 
-        Optional<User> user = userService.findByIdOptional(id);
+        Optional<User> user = userService.findById(id);
         if(user.isPresent()){
             return new ResponseEntity<>(user.get(), HttpStatus.OK);
         }

@@ -1,15 +1,14 @@
 package com.neoway.chatty.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Version;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
-
 import java.util.Date;
 
 import static java.util.Objects.nonNull;
@@ -22,6 +21,7 @@ public class User {
     private String id;
 
     @NotNull(message = "username might not be null")
+    @Indexed(unique = true)
     private String username;
 
     @NotNull(message = "name might not be null")

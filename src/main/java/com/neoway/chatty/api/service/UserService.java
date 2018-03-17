@@ -6,17 +6,13 @@ import java.util.Optional;
 
 public interface UserService {
 
-    User findById(Long id);
-
-    Optional<User> findByIdOptional(Long id);
+    Optional<User> findById(String id);
 
     void create(User user);
 
     Iterable<User> findAll();
 
-    User findByUsername(String userName);
-
-    Optional<User> findByUsernameOptional(String userName);
+    Optional<User> findByUsername(String userName);
 
     void purchaseMessage(User user);
 
