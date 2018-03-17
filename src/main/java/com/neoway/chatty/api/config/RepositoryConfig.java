@@ -1,8 +1,8 @@
 package com.neoway.chatty.api.config;
 
-import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
@@ -13,17 +13,16 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @EnableMongoAuditing
 class RepositoryConfig extends AbstractMongoConfiguration {
 
+    @Value("${database.uri:mongodb://mongodb:27017/chatty-database})")
+    String uri;
+
     @Override
     protected String getDatabaseName() {
-        return "neoway-chatty-database";
+        return "chatty-database";
     }
 
     @Override
     public MongoClient mongoClient() {
-        MongoClientURI connectionString =
-                new MongoClientURI("mongodb://fabiano:fabiano@ds011923.mlab.com:11923/neoway-chatty-database");
-               // new MongoClientURI("mongodb://fabiano:fabiano@localhost:11923/neoway-chatty-database");
-
-        return new MongoClient(connectionString);
+        return new MongoClient(new MongoClientURI(uri));
     }
 }

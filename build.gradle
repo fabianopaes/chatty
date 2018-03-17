@@ -46,9 +46,6 @@ targetCompatibility = 1.8
 
 dependencies {
 
-/*
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
-*/
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest', version: springBootVersion
     compile group: 'javax.validation', name: 'validation-api', version: '1.1.0.Final'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: springBootVersion

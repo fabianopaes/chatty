@@ -1,7 +1,7 @@
 version: "3.1"
 
 services:
-  core:
+  chatty-rest-api:
     build: .
     ports:
       - 8080:8080
