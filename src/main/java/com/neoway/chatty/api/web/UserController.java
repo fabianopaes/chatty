@@ -46,7 +46,7 @@ public class UserController {
         userService.create(user);
 
         return ResponseEntity
-            .created(URIPathBinder.resourceLocationBuilder(EndpointConfig.USERS_SINGLE_RESOURCE,  user.getId()))
+            .created(URIPathBinder.resourceLocationBuilder(EndpointConfig.USERS_SINGLE_RESOURCE,  null))
             .body(user);
     }
 

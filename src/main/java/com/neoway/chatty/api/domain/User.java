@@ -1,24 +1,27 @@
 package com.neoway.chatty.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.joda.time.DateTime;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.Version;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
 import java.util.Date;
 
 import static java.util.Objects.nonNull;
 
 
-@Entity
-@Table(name = "users")
+@Document(collection = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
 
     @NotNull(message = "username might not be null")
-    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @NotNull(message = "name might not be null")
@@ -27,11 +30,15 @@ public class User {
     private Long budget;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+    @CreatedDate
     private Date createdAt;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+    @LastModifiedDate
     private Date updatedAt;
 
+    @Version
+    protected Long version;
 
     public User(){
         //A new user might have 10 credits to send messages throuth the app
@@ -45,11 +52,11 @@ public class User {
         return user;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -67,17 +74,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @PreUpdate
-    public void preUpdate(){
-        updatedAt = new Date();
-    }
-
-    @PrePersist
-    public void prePersist(){
-        createdAt = new Date();
-        updatedAt = new Date();
     }
 
     public Long getBudget() {
@@ -100,6 +96,7 @@ public class User {
         return updatedAt;
     }
 
+
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
@@ -111,4 +108,5 @@ public class User {
     public void discount(Long discount){
         setBudget(getBudget() - discount);
     }
+
 }

@@ -9,7 +9,7 @@ buildscript {
 }
 
 ext {
-    springBootVersion = "1.4.0.RELEASE"
+    springBootVersion = "2.0.0.RELEASE"
 }
 
 apply plugin: 'java'
@@ -50,19 +50,8 @@ dependencies {
 */
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest', version: springBootVersion
     compile group: 'javax.validation', name: 'validation-api', version: '1.1.0.Final'
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: springBootVersion
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongod', version: springBootVersion
-    compile group: 'org.hsqldb', name: 'hsqldb', version: '2.2.9'
-
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: springBootVersion
+    compile group: 'joda-time', name: 'joda-time', version: 2.2
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
-
-/*
-<dependency>
-<groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-rest</artifactId>
-</dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-starter-data-jpa</artifactId>*/
 

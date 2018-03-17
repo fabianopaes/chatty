@@ -1,47 +1,41 @@
 package com.neoway.chatty.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.joda.time.DateTime;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@Entity
-@Table(name = "messages")
+@Document(collection = "messages")
 public class Message {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String id;
 
     @NotNull(message = "from might not be null")
-    @Column(name = "fromUsername", nullable = false)
-    private User sender;
+    private String from;
 
     @NotNull(message = "to might not be null")
-    @Column(name = "toUsername", nullable = false)
-    private User recipient;
+    private String to;
 
     @NotNull(message = "body might not be null")
     private String body;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
+    @CreatedDate
     private Date sentAt;
 
-    @PrePersist
-    public void prePersist(){
-        sentAt = new Date();
-    }
-
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-/*
     public String getFrom() {
         return from;
     }
@@ -57,7 +51,6 @@ public class Message {
     public void setTo(String to) {
         this.to = to;
     }
-*/
 
     public String getBody() {
         return body;
@@ -74,4 +67,5 @@ public class Message {
     public void setSentAt(Date sentAt) {
         this.sentAt = sentAt;
     }
+
 }

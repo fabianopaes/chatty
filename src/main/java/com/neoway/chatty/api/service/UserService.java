@@ -20,5 +20,7 @@ public interface UserService {
 
     void purchaseMessage(User user);
 
+    void save(User user);
+
 
 }
