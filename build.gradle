@@ -51,6 +51,7 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest', version: springBootVersion
     compile group: 'javax.validation', name: 'validation-api', version: '1.1.0.Final'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: springBootVersion
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongod', version: springBootVersion
     compile group: 'org.hsqldb', name: 'hsqldb', version: '2.2.9'
 
     testCompile("org.springframework.boot:spring-boot-starter-test")

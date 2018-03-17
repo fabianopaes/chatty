@@ -4,18 +4,18 @@ import com.neoway.chatty.api.config.EndpointConfig;
 import com.neoway.chatty.api.domain.Message;
 import com.neoway.chatty.api.domain.User;
 import com.neoway.chatty.api.domain.resource.ErrorResource;
+import com.neoway.chatty.api.dto.MessageDTO;
 import com.neoway.chatty.api.service.MessageService;
 import com.neoway.chatty.api.utils.URIPathBinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URISyntaxException;
+import java.util.Map;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -33,14 +33,16 @@ public class MessageController {
 
     @RequestMapping(value = EndpointConfig.MESSAGES_COLLECTION, method = GET)
     @ResponseBody
-    public Iterable<Message> list(){
-        // here we got a
+    public Iterable<Message> list(@RequestParam String recipientId){
+        if(! StringUtils.isEmpty(recipientId)){
+            return messageService.findByRecipient(null);
+        }
         return messageService.findAll();
     }
 
     @RequestMapping(value = EndpointConfig.MESSAGES_COLLECTION, method = POST)
     @ResponseBody
-    public ResponseEntity<Object> sendMessage(@Valid @RequestBody Message message, Errors errors) throws URISyntaxException {
+    public ResponseEntity<Object> sendMessage(@Valid @RequestBody MessageDTO message, Errors errors) throws URISyntaxException {
 
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(ErrorResource.badRequest(errors));

@@ -1,26 +1,19 @@
-package com.neoway.chatty.api.domain;
+package com.neoway.chatty.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
-@Entity
-@Table(name = "messages")
-public class Message {
+public class MessageDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull(message = "from might not be null")
-    @Column(name = "fromUsername", nullable = false)
-    private User sender;
+    private String from;
 
     @NotNull(message = "to might not be null")
-    @Column(name = "toUsername", nullable = false)
-    private User recipient;
+    private String to;
 
     @NotNull(message = "body might not be null")
     private String body;
@@ -28,10 +21,6 @@ public class Message {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private Date sentAt;
 
-    @PrePersist
-    public void prePersist(){
-        sentAt = new Date();
-    }
 
     public Long getId() {
         return id;
@@ -41,7 +30,6 @@ public class Message {
         this.id = id;
     }
 
-/*
     public String getFrom() {
         return from;
     }
@@ -57,7 +45,6 @@ public class Message {
     public void setTo(String to) {
         this.to = to;
     }
-*/
 
     public String getBody() {
         return body;

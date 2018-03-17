@@ -30,7 +30,7 @@ public class MessageServiceImpl implements MessageService{
     @Override
     public void send(Message message) {
 
-        User userSource = userService.findByUsernameOptional(message.getFrom())
+/*        User userSource = userService.findByUsernameOptional(message.getFrom())
                 .orElseThrow(null);
 
         if(! userSource.hasBudget()){
@@ -38,11 +38,11 @@ public class MessageServiceImpl implements MessageService{
         }
 
         User userTarget = userService.findByUsernameOptional(message.getTo())
-                .orElseThrow(null);
+                .orElseThrow(null);*/
 
         save(message);
 
-        userService.purchaseMessage(userSource);
+        userService.purchaseMessage(null);
     }
 
     @Override
@@ -52,6 +52,11 @@ public class MessageServiceImpl implements MessageService{
 
     @Override
     public Iterable<Message> findAll() {
+        return null;
+    }
+
+    @Override
+    public Iterable<Message> findByRecipient(Long id) {
         return null;
     }
 }

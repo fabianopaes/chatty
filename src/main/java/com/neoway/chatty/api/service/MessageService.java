@@ -9,4 +9,6 @@ public interface MessageService {
     void save(Message user);
 
     Iterable<Message> findAll();
+
+    Iterable<Message> findByRecipient(Long id);
 }
