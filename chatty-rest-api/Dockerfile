@@ -11,7 +11,7 @@ ENV JAVA_OPTS ${JAVA_OPTS:-'-Xmx512m'}
 ENV DEBUG_OPTS ${DEBUG_OPTS}
 ENV PORT ${PORT:-8083}
 
-ADD /build/libs/chatty.jar /chatty.jar
+ADD /build/libs/chatty-rest-api.jar /chatty.jar
 
 VOLUME /tmp
 
