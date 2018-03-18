@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: chatty-rest-api
+  cloud:
+    config:
+      uri: http://localhost:8888
+
+---
+spring:
+  application:
+    name: chatty-rest-api
+  profiles: docker
+  cloud:
+      config:
+        uri: http://chatty-config-server:8888

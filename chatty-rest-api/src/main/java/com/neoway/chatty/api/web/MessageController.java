@@ -6,6 +6,7 @@ import com.neoway.chatty.api.domain.resource.ErrorResource;
 import com.neoway.chatty.api.service.MessageService;
 import com.neoway.chatty.api.utils.URIPathBinder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
@@ -28,7 +29,7 @@ public class MessageController {
     }
 
 
-    @RequestMapping(value = EndpointConfig.MESSAGES_COLLECTION, method = GET)
+    @RequestMapping(value = EndpointConfig.MESSAGES_COLLECTION, method = GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Iterable<Message> list(@RequestParam String recipientId){
         if(! StringUtils.isEmpty(recipientId)){
@@ -37,7 +38,7 @@ public class MessageController {
         return messageService.findAll();
     }
 
-    @RequestMapping(value = EndpointConfig.MESSAGES_COLLECTION, method = POST)
+    @RequestMapping(value = EndpointConfig.MESSAGES_COLLECTION, method = POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<Object> sendMessage(@Valid @RequestBody Message message, Errors errors) throws URISyntaxException {
 

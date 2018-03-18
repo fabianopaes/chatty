@@ -11,7 +11,7 @@ ENV JAVA_OPTS ${JAVA_OPTS:-'-Xmx512m'}
 ENV DEBUG_OPTS ${DEBUG_OPTS}
 ENV PORT ${PORT:-8083}
 
-ADD /build/libs/chatty-rest-api.jar /chatty.jar
+ADD /build/libs/chatty-rest-api-1.0.0.jar /chatty-rest-api.jar
 
 VOLUME /tmp
 
@@ -21,4 +21,4 @@ EXPOSE ${PORT}
 
 CMD echo "The application will start in ${STARTUP_SLEEP}s..." && \
     sleep ${STARTUP_SLEEP} && \
-    java ${JAVA_OPTS} ${DEBUG_OPTS} -Djava.security.egd=file:/dev/./urandom -jar /chatty.jar
+    java ${JAVA_OPTS} ${DEBUG_OPTS} -Djava.security.egd=file:/dev/./urandom -jar /chatty-rest-api.jar

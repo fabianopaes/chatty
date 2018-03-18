@@ -7,11 +7,13 @@ import com.neoway.chatty.api.service.UserService;
 import com.neoway.chatty.api.utils.URIPathBinder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.ws.rs.Produces;
 import java.net.URISyntaxException;
 import java.util.Optional;
 
@@ -28,13 +30,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = EndpointConfig.USERS_COLLECTION, method = GET)
+    @RequestMapping(value = EndpointConfig.USERS_COLLECTION, method = GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Iterable<User> list(){
         return userService.findAll();
     }
 
-    @RequestMapping(value = EndpointConfig.USERS_COLLECTION, method = POST)
+    @RequestMapping(value = EndpointConfig.USERS_COLLECTION, method = POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<Object> create(@Valid @RequestBody User user, Errors errors) throws URISyntaxException {
 
@@ -50,7 +52,7 @@ public class UserController {
             .body(user);
     }
 
-    @RequestMapping(value = EndpointConfig.USERS_SINGLE_RESOURCE, method = GET)
+    @RequestMapping(value = EndpointConfig.USERS_SINGLE_RESOURCE, method = GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<Object> get(@PathVariable(value="id") String id){
 
