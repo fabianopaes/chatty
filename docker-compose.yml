@@ -3,14 +3,37 @@ version: "3.1"
 services:
   chatty-rest-api:
     build: .
+    expose:
+      - "8080"
     ports:
-      - 8080:8080
+      - "8080:8080"
     depends_on:
       - mongodb
     environment:
       - DATABASE_URI=mongodb://mongodb:27017/chatty-database
+    networks:
+      - microservices
+
+  chatty-config-server:
+    build:
+      context: ./chatty-config-server
+    environment:
+      - SPRING_PROFILES_ACTIVE=${PROFILE}
+    expose:
+      - "8888"
+    ports:
+      - "8888:8888"
+    networks:
+      - microservices
+
 
   mongodb:
     image: mongo:latest
     ports:
       - 27017:27017
+    networks:
+      - microservices
+
+networks:
+  microservices:
+    driver: bridge
