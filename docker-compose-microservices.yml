@@ -38,6 +38,9 @@ services:
     environment:
       - DATABASE_URI=mongodb://mongodb:27017/chatty-database
       - SPRING_PROFILES_ACTIVE=docker
+    links:
+      - chatty-config-server
+      - chatty-service-discovery
     networks:
       - microservices
 
