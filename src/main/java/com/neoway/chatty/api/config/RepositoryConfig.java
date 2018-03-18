@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @EnableMongoAuditing
 class RepositoryConfig extends AbstractMongoConfiguration {
 
-    @Value("${database.uri:mongodb://mongodb:27017/chatty-database})")
+    @Value("${database.uri:mongodb://localhost:27017/chatty-database})")
     String uri;
 
     @Override

@@ -49,7 +49,6 @@ dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest', version: springBootVersion
     compile group: 'javax.validation', name: 'validation-api', version: '1.1.0.Final'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: springBootVersion
-    compile group: 'joda-time', name: 'joda-time', version: 2.2
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 

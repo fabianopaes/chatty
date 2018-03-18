@@ -1,7 +1,6 @@
 package com.neoway.chatty.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
