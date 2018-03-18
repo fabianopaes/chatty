@@ -1,0 +1,54 @@
+version: "3.1"
+
+services:
+  chatty-config-server:
+    build:
+      context: ./chatty-config-server
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    expose:
+      - "8888"
+    ports:
+      - "8888:8888"
+    networks:
+      - microservices
+
+  chatty-service-discovery:
+    build:
+      context: ./chatty-service-discovery
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    links:
+      - chatty-config-server
+    expose:
+      - "8761"
+    ports:
+      - "8761:8761"
+    networks:
+      - microservices
+
+  chatty-rest-api:
+    build: .
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    expose:
+      - "8080"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    environment:
+      - DATABASE_URI=mongodb://mongodb:27017/chatty-database
+    networks:
+      - microservices
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    networks:
+      - microservices
+
+networks:
+  microservices:
+    driver: bridge

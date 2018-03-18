@@ -7,7 +7,9 @@ spring:
 
 ---
 spring:
+  application:
+    name: chatty-service-discovery
   profiles: docker
   cloud:
       config:
-        uri: http://chatty-config-service:8888
+        uri: http://chatty-config-server:8888
