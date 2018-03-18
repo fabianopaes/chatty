@@ -1,2 +1,2 @@
 rootProject.name = 'chatty'
-include 'chatty-config-server'
+include 'chatty-config-server', 'chatty-service-discovery'
