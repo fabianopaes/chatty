@@ -2,6 +2,7 @@ package com.neoway.chatty.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.neoway.chatty.api.utils.Constants;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -26,6 +27,7 @@ public class User {
     private String username;
 
     @JsonIgnore
+    @Indexed(unique = true)
     private String usernameCanonical;
 
     @NotNull(message = "name might not be null")
@@ -45,14 +47,14 @@ public class User {
     protected Long version;
 
     public User(){
-        //A new user might have 10 credits to send messages throuth the app
-        this.budget = 10L;
+        this.budget = Constants.DEFAULT_BUDGET;
     }
 
     public static User of(String name, String username){
         User user = new User();
         user.setName(name);
         user.setUsername(username);
+        user.setUsernameCanonical(username.toLowerCase());
         return user;
     }
 
@@ -106,7 +108,8 @@ public class User {
     }
 
     public boolean hasBudget(){
-        return nonNull(budget) && budget > 0;
+        boolean hasBudget =  nonNull(budget) && budget.intValue() > 0;
+        return hasBudget;
     }
 
     public void discount(Long discount){
@@ -119,5 +122,19 @@ public class User {
 
     public void setUsernameCanonical(String usernameCanonical) {
         this.usernameCanonical = usernameCanonical.toLowerCase();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
+                ", usernameCanonical='" + usernameCanonical + '\'' +
+                ", name='" + name + '\'' +
+                ", budget=" + budget +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", version=" + version +
+                '}';
     }
 }

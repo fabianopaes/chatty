@@ -27,6 +27,15 @@ public class Message {
     @CreatedDate
     private Date sentAt;
 
+    public static Message of(String from,String to, String body, Date sentAt ){
+        Message message = new Message();
+        message.setBody(body);
+        message.setFrom(from);
+        message.setTo(to);
+        message.setSentAt(sentAt);
+        return message;
+    }
+
     public String getId() {
         return id;
     }

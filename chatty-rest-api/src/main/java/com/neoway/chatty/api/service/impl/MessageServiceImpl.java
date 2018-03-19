@@ -18,7 +18,6 @@ import java.util.List;
 @Service
 public class MessageServiceImpl implements MessageService{
 
-
     private UserService userService;
 
     private MessageRepository messageRepository;

@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @Configuration
 @EnableMongoRepositories(basePackages="com.neoway.chatty.api.domain")
 @EnableMongoAuditing
-class RepositoryConfig extends AbstractMongoConfiguration {
+class MongoDbConfig extends AbstractMongoConfiguration {
 
     @Value("${database.uri:mongodb://localhost:27017/chatty-database})")
     String uri;
