@@ -1,12 +1,14 @@
 package com.neoway.chatty.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.util.StringUtils;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -21,8 +23,10 @@ public class User {
     private String id;
 
     @NotNull(message = "username might not be null")
-    @Indexed(unique = true)
     private String username;
+
+    @JsonIgnore
+    private String usernameCanonical;
 
     @NotNull(message = "name might not be null")
     private String name;
@@ -109,4 +113,11 @@ public class User {
         setBudget(getBudget() - discount);
     }
 
+    public String getUsernameCanonical() {
+        return usernameCanonical;
+    }
+
+    public void setUsernameCanonical(String usernameCanonical) {
+        this.usernameCanonical = usernameCanonical.toLowerCase();
+    }
 }

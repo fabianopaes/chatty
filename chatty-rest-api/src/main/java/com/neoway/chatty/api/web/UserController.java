@@ -38,18 +38,23 @@ public class UserController {
 
     @RequestMapping(value = EndpointConfig.USERS_COLLECTION, method = POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<Object> create(@Valid @RequestBody User user, Errors errors) throws URISyntaxException {
+    public ResponseEntity<Object> create(@Valid @RequestBody User request, Errors errors) throws URISyntaxException {
 
         if (errors.hasErrors()) {
             return ResponseEntity.badRequest().body(ErrorResource.badRequest(errors));
         }
 
-        //TODO it still need to validate properly if the user is already  in database
-        userService.create(user);
+        Optional<User> user = userService.findByUsername(request.getUsername());
+        if(user.isPresent()){
+            return new ResponseEntity(ErrorResource.conflict("Unable to create. A User with name " +
+                    user.get().getName() + " already exist."),HttpStatus.CONFLICT);
+
+        }
+        userService.save(request);
 
         return ResponseEntity
-            .created(URIPathBinder.resourceLocationBuilder(EndpointConfig.USERS_SINGLE_RESOURCE,  null))
-            .body(user);
+            .created(URIPathBinder.resourceLocationBuilder(request.getId()))
+            .body(request);
     }
 
     @RequestMapping(value = EndpointConfig.USERS_SINGLE_RESOURCE, method = GET, produces = MediaType.APPLICATION_JSON_VALUE)

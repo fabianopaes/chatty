@@ -28,19 +28,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void create(User user) {
-        //validade
-        userRepository.save(user);
-    }
-
-    @Override
     public Iterable<User> findAll() {
         return userRepository.findAll();
     }
 
     @Override
     public Optional<User> findByUsername(String username) {
-        return Optional.ofNullable(userRepository.findByUsername(username));
+        return Optional.ofNullable(userRepository.findByUsernameCanonical(username.toLowerCase()));
     }
 
     @Override
@@ -51,6 +45,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) {
+        user.setUsernameCanonical(user.getUsername().toLowerCase());
         userRepository.save(user);
     }
 

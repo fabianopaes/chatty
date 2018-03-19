@@ -2,10 +2,10 @@ version: "3.1"
 
 services:
   chatty-config-server:
-    build:
-      context: ./chatty-config-server
+    image:  hyness/spring-cloud-config-server
+    hostname: chatty-service-discovery
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_CLOUD_CONFIG_SERVER_GIT_URI=https://github.com/fabianopaes/chatty-config-repo.git
     expose:
       - "8888"
     ports:
@@ -14,10 +14,10 @@ services:
       - microservices
 
   chatty-service-discovery:
-    build:
-      context: ./chatty-service-discovery
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
+    image:  springcloud/eureka
+    hostname: chatty-service-discovery
+    depends_on:
+      - chatty-config-server
     links:
       - chatty-config-server
     expose:
@@ -29,6 +29,7 @@ services:
 
   chatty-rest-api:
     build: ./chatty-rest-api
+    hostname: chatty-rest-api
     expose:
       - "8080"
     ports:

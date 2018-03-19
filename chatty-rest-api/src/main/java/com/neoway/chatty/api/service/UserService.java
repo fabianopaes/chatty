@@ -8,8 +8,6 @@ public interface UserService {
 
     Optional<User> findById(String id);
 
-    void create(User user);
-
     Iterable<User> findAll();
 
     Optional<User> findByUsername(String userName);
@@ -17,6 +15,5 @@ public interface UserService {
     void purchaseMessage(User user);
 
     void save(User user);
-
 
 }

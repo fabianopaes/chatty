@@ -3,10 +3,14 @@ package com.neoway.chatty.api.service.impl;
 import com.neoway.chatty.api.domain.Message;
 import com.neoway.chatty.api.domain.MessageRepository;
 import com.neoway.chatty.api.domain.User;
+import com.neoway.chatty.api.exception.UserHasNoBudgetException;
+import com.neoway.chatty.api.exception.UserNotFoundException;
 import com.neoway.chatty.api.service.MessageService;
 import com.neoway.chatty.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -31,14 +35,16 @@ public class MessageServiceImpl implements MessageService{
     public void send(Message message) {
 
         User sender = userService.findByUsername(message.getFrom())
-                .orElseThrow(null);
+                .orElseThrow(()->new UserNotFoundException("not found the sender user", message.getFrom()));
 
-        if(! sender.hasBudget()){
-            throw new RuntimeException("The user has no budget to sent the message");
-        }
 
         userService.findByUsername(message.getTo())
-                .orElseThrow(null);
+                .orElseThrow(()->new UserNotFoundException("not found the recipient user", message.getTo()));
+
+        if(! sender.hasBudget()){
+            throw new UserHasNoBudgetException(
+                    "The user has no budget to sent the message", sender.getId());
+        }
 
         save(message);
 
@@ -51,12 +57,12 @@ public class MessageServiceImpl implements MessageService{
     }
 
     @Override
-    public Iterable<Message> findAll() {
-        return null;
+    public List<Message> findAll() {
+        return messageRepository.findAll();
     }
 
     @Override
-    public Iterable<Message> findByRecipient(Long id) {
-        return null;
+    public List<Message> findByRecipientUsername(String id) {
+        return messageRepository.findByRecipient(id);
     }
 }

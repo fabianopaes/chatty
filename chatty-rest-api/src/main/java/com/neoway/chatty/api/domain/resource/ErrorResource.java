@@ -39,15 +39,19 @@ public class ErrorResource {
         return new ErrorResource(HttpStatus.NOT_FOUND.name(), Arrays.asList(message));
     }
     
-    public static ErrorResource badRequest(String message){
-        return new ErrorResource(HttpStatus.BAD_REQUEST.name(), Arrays.asList(message));        
-    }
-    
-    public static ErrorResource badRequest(Errors errors){         
+    public static ErrorResource badRequest(Errors errors){
         return new ErrorResource(HttpStatus.BAD_REQUEST.name(),
             errors.getAllErrors().parallelStream()
                     .map(error -> error.getDefaultMessage())
                     .collect(toList())
         ); 
+    }
+
+    public static ErrorResource badRequest(String message){
+        return new ErrorResource(HttpStatus.BAD_REQUEST.name(), Arrays.asList(message));
+    }
+
+    public static ErrorResource conflict(String message){
+        return new ErrorResource(HttpStatus.CONFLICT.name(), Arrays.asList(message));
     }
 }

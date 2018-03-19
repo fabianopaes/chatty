@@ -7,7 +7,7 @@ import java.net.URISyntaxException;
 
 public class URIPathBinder {
     
-    public static URI resourceLocationBuilder(String endpoint, Long id) throws URISyntaxException {
-        return new URI(EndpointConfig.USERS_SINGLE_RESOURCE.replace("{id}", String.valueOf(id)));
+    public static URI resourceLocationBuilder(String id) throws URISyntaxException {
+        return new URI(EndpointConfig.USERS_SINGLE_RESOURCE.replace("{id}",id));
     } 
 }

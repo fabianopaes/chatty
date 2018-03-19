@@ -28,12 +28,11 @@ public class MessageController {
         this.messageService = messageService;
     }
 
-
     @RequestMapping(value = EndpointConfig.MESSAGES_COLLECTION, method = GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Iterable<Message> list(@RequestParam String recipientId){
-        if(! StringUtils.isEmpty(recipientId)){
-            return messageService.findByRecipient(null);
+    public Iterable<Message> list(@RequestParam String recipient){
+        if(! StringUtils.isEmpty(recipient)){
+            return messageService.findByRecipientUsername(recipient);
         }
         return messageService.findAll();
     }
@@ -49,7 +48,7 @@ public class MessageController {
         messageService.send(message);
 
         return ResponseEntity
-                .created(URIPathBinder.resourceLocationBuilder(EndpointConfig.USERS_SINGLE_RESOURCE,  null))
+                .created(URIPathBinder.resourceLocationBuilder(message.getId()))
                 .body(message);
     }
 

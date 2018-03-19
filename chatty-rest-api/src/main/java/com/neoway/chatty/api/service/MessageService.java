@@ -2,13 +2,15 @@ package com.neoway.chatty.api.service;
 
 import com.neoway.chatty.api.domain.Message;
 
+import java.util.List;
+
 public interface MessageService {
 
     void send(Message message);
 
     void save(Message user);
 
-    Iterable<Message> findAll();
+    List<Message> findAll();
 
-    Iterable<Message> findByRecipient(Long id);
+    List<Message> findByRecipientUsername(String id);
 }
