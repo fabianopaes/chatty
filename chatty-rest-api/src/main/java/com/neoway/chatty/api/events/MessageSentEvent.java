@@ -4,18 +4,14 @@ import com.neoway.chatty.api.domain.User;
 
 import java.util.Date;
 
-public class MessageSentEvent extends ChattyEvent {
+public class MessageSentEvent  extends AbstractEvent {
 
     private User sender;
     private User receipt;
     private Date sentAt;
     private String content;
 
-    public MessageSentEvent(){
-        super(EventType.MESSAGE_HAS_SENT);
-    }
-
-    private MessageSentEvent create(User sender, User receipt, Date sentAt, String content){
+    public static MessageSentEvent create(User sender, User receipt, Date sentAt, String content){
         MessageSentEvent event = new MessageSentEvent();
         event.sender = sender;
         event.receipt = receipt;
@@ -39,4 +35,5 @@ public class MessageSentEvent extends ChattyEvent {
     public String getContent() {
         return content;
     }
+
 }

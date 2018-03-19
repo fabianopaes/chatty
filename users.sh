@@ -19,3 +19,9 @@ echo ""
 curl -X POST "http://localhost:8080/users" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\":\"Fabiano Paes\",\"username\":\"FABIANO.PAES\"}"
 echo ""
 curl -X POST "http://localhost:8080/users" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\":\"Peter Gibbons\",\"username\":\"PETER.gibbons\"}"
+
+
+echo ""
+curl -X POST "http://localhost:8080/users" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\":\"Fab Fab\",\"username\":\"fab.fab\"}"
+echo ""
+curl -X POST "http://localhost:8080/users" -H "accept: application/json" -H "Content-Type: application/json" -d "{\"name\":\"Fab\",\"username\":\"fab\"}"

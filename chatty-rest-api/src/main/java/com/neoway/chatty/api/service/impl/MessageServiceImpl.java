@@ -3,6 +3,8 @@ package com.neoway.chatty.api.service.impl;
 import com.neoway.chatty.api.domain.Message;
 import com.neoway.chatty.api.domain.MessageRepository;
 import com.neoway.chatty.api.domain.User;
+import com.neoway.chatty.api.events.EventDispatcher;
+import com.neoway.chatty.api.events.MessageSentEvent;
 import com.neoway.chatty.api.exception.UserHasNoBudgetException;
 import com.neoway.chatty.api.exception.UserNotFoundException;
 import com.neoway.chatty.api.service.MessageService;
@@ -21,6 +23,8 @@ public class MessageServiceImpl implements MessageService{
 
     private MessageRepository messageRepository;
 
+    private EventDispatcher eventDispatcher;
+
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
@@ -31,6 +35,11 @@ public class MessageServiceImpl implements MessageService{
         this.messageRepository = messageRepository;
     }
 
+    @Autowired
+    public void setEventDispatcher(EventDispatcher eventDispatcher) {
+        this.eventDispatcher = eventDispatcher;
+    }
+
     @Override
     public void send(Message message) {
 
@@ -38,7 +47,7 @@ public class MessageServiceImpl implements MessageService{
                 .orElseThrow(()->new UserNotFoundException("not found the sender user", message.getFrom()));
 
 
-        userService.findByUsername(message.getTo())
+        User recipient =  userService.findByUsername(message.getTo())
                 .orElseThrow(()->new UserNotFoundException("not found the recipient user", message.getTo()));
 
         if(! sender.hasBudget()){
@@ -47,8 +56,9 @@ public class MessageServiceImpl implements MessageService{
         }
 
         save(message);
-
         userService.purchaseMessage(sender);
+        eventDispatcher
+                .dispatch(MessageSentEvent.create(sender, recipient, message.getSentAt(), message.getBody() ));
     }
 
     @Override
