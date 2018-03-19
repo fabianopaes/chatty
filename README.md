@@ -15,8 +15,8 @@ You can choice to run only chatty-rest-api or start up all the solutions togethe
 
 You need the following things properly installed on your own machine.
 
-* [Docker]()
-* [Gradle]() 
+* [Docker](https://github.com/Netflix/eureka)
+* [Gradle](https://gradle.org/) 
 
 ``` console
 $ docker-compose up
@@ -47,7 +47,7 @@ The chatty-config-server is an solution to provide a centralized configuration, 
 
 ## chatty-service-discovery
 
-This is the Chatty service discovery solution, you can reed about this pattern [here](wwww.put.some.martin.flower.com). It uses [Netflix Eureka](https://www.docker.com/community-edition).
+This is the Chatty service discovery solution, you can reed about this pattern [here](http://microservices.io/patterns/server-side-discovery.html). It uses [Netflix Eureka](https://github.com/Netflix/eureka).
 
 
 
