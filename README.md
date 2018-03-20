@@ -1,5 +1,5 @@
 # Chatty
-[![Build Status](https://travis-ci.org/fabianopaes/nw-chatty-rest-api.svg?branch=master)](https://travis-ci.org/fabianopaes/nw-chatty-rest-api)
+[![Build Status](https://travis-ci.org/fabianopaes/chatty.svg?branch=master)](https://travis-ci.org/fabianopaes/chatty)
 
 The chatty repository contains all projects that you need to run the chatty solution properly. It' an API which deal with users exchanging messages between each other.
 
@@ -57,7 +57,7 @@ $ docker-compose -f docker-compose-microservices.yml up --build
 * chatty-service-discovery will be accessible on http://localhost:8761
 * chatty-rest-api will be accessible on http://localhost:8080
 
-The project has its CI set up on [travis-ci](https://travis-ci.org/fabianopaes/nw-chatty-rest-api)
+The project has its CI set up on [travis-ci](https://travis-ci.org/fabianopaes/chatty)
 
 ## Running tests
 
